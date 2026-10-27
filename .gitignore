@@ -1,0 +1,27 @@
+# 只收录模块和管理 App 的源码，同目录下的其他项目、刷机包不进仓库
+/*
+!/.gitignore
+!/README.md
+!/HyperAdClean/
+!/HyperAdCleanApp/
+
+# 模块：APK 打包时从 App 构建产物复制进来
+/HyperAdClean/app/
+# 旧版 WebUI，已不再打包（mock.js 里是真机的应用列表）
+/HyperAdClean/webroot/
+
+# App：构建产物、本机 SDK 路径、签名文件
+/HyperAdCleanApp/.gradle/
+/HyperAdCleanApp/.kotlin/
+/HyperAdCleanApp/build/
+/HyperAdCleanApp/app/build/
+/HyperAdCleanApp/local.properties
+/HyperAdCleanApp/keystore/
+
+*.apk
+*.zip
+*.jks
+*.keystore
+.DS_Store
+__pycache__/
+.idea/

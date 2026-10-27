@@ -1,0 +1,6 @@
+id=hyperadclean
+name=澎湃小工具
+version=v2.0.5
+versionCode=205
+author=dalong
+description=系统精简去广告、屏蔽系统更新、全局高刷、完整色彩风格、字体、限频、编译优化，并集成动态机型修改、电池循环伪装、远程进程守卫、WLAN 调试日志清理、竖屏锁定、充电控制（支持小米 MCA 机型和 13 Ultra 等 qcom-battery 机型：自定义温控墙、米系亮屏快充阶梯限流、亮屏/息屏快充、充电上限、系统温度墙图表、充电曲线记录）。安装后自动装上配套管理 App。

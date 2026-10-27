@@ -1,0 +1,11 @@
+# 手机管家反诈 / 风险应用云端
+# 风险应用云扫描：上传已安装应用信息列表 + uuid/oaid + 机型
+virus-engine.sec.miui.com
+# 风险应用网络指令
+notify.sec.miui.com
+staging-notify.sec.miui.com
+# NFC 反诈配置
+fraud-detection.engine.miui.com
+# 反诈事件埋点（OneTrack：antifraud_*、xsof_fraud_detection_*）
+tracking.miui.com
+tracking.intl.miui.com

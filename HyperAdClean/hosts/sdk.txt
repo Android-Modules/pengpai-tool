@@ -1,0 +1,20 @@
+# 穿山甲 (字节)
+pangolin.snssdk.com
+pangolin-sdk-toutiao.com
+pangolin-sdk-toutiao-b.com
+api-access.pangolin-sdk-toutiao.com
+# 优量汇 / 广点通 (腾讯)
+mi.gdt.qq.com
+v.gdt.qq.com
+c.gdt.qq.com
+t.gdt.qq.com
+win.gdt.qq.com
+qzs.gdtimg.com
+adsmind.gdtimg.com
+sdk.e.qq.com
+# 快手联盟
+open.e.kuaishou.com
+api.e.kuaishou.com
+# 百度联盟
+mobads.baidu.com
+mobads-logs.baidu.com
