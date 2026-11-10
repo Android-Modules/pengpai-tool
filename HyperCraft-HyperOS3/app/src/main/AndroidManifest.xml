@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <package android:name="org.lsposed.manager" />
+        <package android:name="com.android.settings" />
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+    <application android:name=".HyperHomeApp" android:label="澎湃工坊"
+        android:icon="@drawable/ic_launcher" android:theme="@style/Theme.HyperHome"
+        android:allowBackup="false" android:dataExtractionRules="@xml/backup_rules" android:supportsRtl="true"
+        android:enableOnBackInvokedCallback="false">
+        <activity android:name="com.dalong.pengpaitool.StreamlineActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

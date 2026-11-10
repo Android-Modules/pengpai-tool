@@ -1,0 +1,5 @@
+# Known destinations only. DNS/hosts filtering does not prevent local collection
+# or cover other domains, cached/direct IP connections, or application-owned DNS.
+fraud-detection.engine.miui.com
+flash.sec.miui.com
+dm.wo.com.cn

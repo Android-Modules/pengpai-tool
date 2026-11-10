@@ -1,0 +1,21 @@
+# 小米系统广告
+ad.mi.com
+ad.xiaomi.com
+ad1.xiaomi.com
+api.ad.xiaomi.com
+new.api.ad.xiaomi.com
+sdkconfig.ad.xiaomi.com
+globalapi.ad.xiaomi.com
+e.ad.xiaomi.com
+test.ad.xiaomi.com
+test.new.api.ad.xiaomi.com
+adv.sec.miui.com
+ad.intl.xiaomi.com
+sdkconfig.ad.intl.xiaomi.com
+adv.sec.intl.miui.com
+# 小米统计 / 行为上报
+tracking.miui.com
+tracking.intl.miui.com
+data.mistat.xiaomi.com
+data.mistat.intl.xiaomi.com
+abtest.mistat.xiaomi.com
