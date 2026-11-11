@@ -1,6 +1,7 @@
 # 只收录模块和管理 App 的源码，同目录下的其他项目、刷机包不进仓库
 /*
 !/.gitignore
+!/.github/
 !/README.md
 !/HyperAdClean/
 !/HyperAdCleanApp/

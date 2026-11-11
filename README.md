@@ -1,6 +1,14 @@
 # 澎湃小工具（pengpai-tool）
 
-> **新版入口：** [澎湃工坊 HyperOS 3](HyperCraft-HyperOS3/README.md)，复制自 `hyperos4/hyperhome`。保留工坊风格与五组系统工具，已移除桌面和系统界面两组功能。以下为保留的旧版模块文档。
+## 澎湃工坊 · HyperOS 3
+
+澎湃工坊保留原工坊的卡片界面和首页搜索，提供系统精简、显示与锁屏、电池与性能、系统工具、日志与诊断五组功能。HyperOS 3 版已移除桌面和系统界面两组功能。
+
+在 [GitHub Releases](https://github.com/Android-Modules/pengpai-tool/releases) 下载 `HyperCraft-HyperOS3-*.apk`，直接在手机上安装。在 KernelSU 等 Root 管理器中为澎湃工坊授权后，即可使用 Root 工具。安装步骤、真机验证范围和更多截图见[新版使用说明](HyperCraft-HyperOS3/README.md)。
+
+<img src="HyperCraft-HyperOS3/docs/screenshots/home.png" width="225" alt="澎湃工坊首页"> <img src="HyperCraft-HyperOS3/docs/screenshots/battery.png" width="225" alt="电池与性能工具列表">
+
+## 旧版澎湃小工具
 
 HyperOS 3 的 KernelSU 模块 + 配套管理 App。去广告、精简系统、屏蔽系统更新提示、全局高刷、充电温控与充电上限、CPU 限频、应用编译优化、机型修改、电池循环伪装……所有改动都有记录，都能一键恢复。
 

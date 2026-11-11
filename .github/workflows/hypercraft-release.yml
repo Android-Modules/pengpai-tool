@@ -1,0 +1,63 @@
+name: 澎湃工坊 HyperOS 3 发布
+
+on:
+  push:
+    tags:
+      - 'v*-hyperos3.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+        working-directory: HyperCraft-HyperOS3
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: 安装 Android SDK
+        run: sdkmanager 'platforms;android-37.0' 'build-tools;36.1.0'
+      - name: 构建 APK 并运行单元测试
+        run: bash ./gradlew --no-daemon :app:assembleRelease :app:testDebugUnitTest :streamline:testDebugUnitTest
+      - name: 运行 Root 后端主机测试
+        run: python3 -m unittest discover -s streamline/tests
+      - name: 校验 APK 并发布
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          apk=app/build/outputs/apk/release/app-release.apk
+          build_tools="$ANDROID_HOME/build-tools/36.1.0"
+          "$build_tools/apksigner" verify "$apk"
+          "$build_tools/aapt" dump badging "$apk" > "$RUNNER_TEMP/hypercraft-badging.txt"
+          if ! grep -Fq "versionName='$version'" "$RUNNER_TEMP/hypercraft-badging.txt"; then
+            echo "版本标签 $GITHUB_REF_NAME 与 APK 版本不一致"
+            exit 1
+          fi
+
+          asset="HyperCraft-HyperOS3-$version.apk"
+          mkdir -p dist
+          cp "$apk" "dist/$asset"
+          (cd dist && sha256sum "$asset" > "$asset.sha256")
+
+          cat > "$RUNNER_TEMP/hypercraft-release.md" <<EOF
+          适配 HyperOS 3 的澎湃工坊，包含系统精简、显示与锁屏、电池与性能、系统工具、日志与诊断五组功能。
+
+          下载 \`$asset\` 后用手机安装器打开，Root 工具需要在 Root 管理器中授权。「我的设备美化」需要 LSPosed API 102。
+
+          本包使用 CI 开发签名。覆盖安装要求签名一致，替换本地构建版前请先备份设置。
+
+          [安装说明、真机截图和适配范围]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/blob/$GITHUB_REF_NAME/HyperCraft-HyperOS3/README.md)
+          EOF
+          gh release create "$GITHUB_REF_NAME" "dist/$asset" "dist/$asset.sha256" \
+            --verify-tag --title "澎湃工坊 HyperOS 3 $version" \
+            --notes-file "$RUNNER_TEMP/hypercraft-release.md"

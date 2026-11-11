@@ -1,10 +1,18 @@
 # 澎湃工坊 · HyperOS 3
 
-基于本机 `hyperos4/hyperhome` 的澎湃工坊完整源码复制，保留原有首页、卡片、配色与工具界面，适配 HyperOS 3。新版位于独立子目录，不修改源项目。
+澎湃工坊是一款面向 HyperOS 3 的系统工具 App，沿用原工坊的首页、卡片、配色和工具界面。从首页可以浏览五组工具，也可以直接按名称搜索功能。
 
-当前版本 **0.3.0-hyperos3.1**（38），包名 `io.github.dalong.hypercraft`。按用户要求，已删除「桌面」「系统界面」全部功能、配置桥、Java/原生 Hook、菜单、搜索入口及对应作用域，同时移除依赖 SystemUI Hook 的小横条显示与沉浸。仅保留设置作用域，用于“我的设备美化”。
+当前版本 **0.3.0-hyperos3.1**（38），包名 `io.github.dalong.hypercraft`。HyperOS 3 版已移除「桌面」「系统界面」两组功能及其 Hook，LSPosed 作用域只保留「设置」，供「我的设备美化」使用。
 
-## 保留功能
+## 真机截图
+
+以下界面截自运行 HyperOS `OS3.0.306.0.WGNMIXM` 的 POCO F9 Ultra。
+
+| 首页 | 系统精简 | 显示与锁屏 | 电池与性能 |
+| --- | --- | --- | --- |
+| <img src="docs/screenshots/home.png" width="220" alt="澎湃工坊首页和搜索入口"> | <img src="docs/screenshots/system-cleanup.png" width="220" alt="系统精简工具列表"> | <img src="docs/screenshots/display.png" width="220" alt="显示与锁屏工具列表"> | <img src="docs/screenshots/battery.png" width="220" alt="电池与性能工具列表"> |
+
+## 功能一览
 
 | 分组 | 页面 |
 | --- | --- |
@@ -14,24 +22,32 @@
 | 系统工具 | 机型修改、我的设备美化、开发者选项、无线调试诊断、账号同步、WLAN 密码、隐藏设置入口 |
 | 日志与诊断 | 备份与模块设置、运行日志、关于澎湃工坊 |
 
-五组共 30 个页面。首页搜索与菜单共用同一目录，避免已删除功能残留入口。这里的系统图标工具使用原生设置键，未包含已删除的状态栏 Hook。
+**精简和恢复。** 可从推荐清单或自定义列表选择系统组件。冻结后可解冻，按用户卸载前会备份 APK。已处理的应用可在「系统精简」里查看和恢复。备份目录和开机保持选项位于「备份与模块设置」。
+
+**显示与硬件控制。** 全局高刷列出设备支持的模式，系统图标隐藏使用 HyperOS 原生设置。充电控制、系统温度墙、循环次数和处理器调整根据本机硬件及内核能力显示可用项。充电控制和充电记录默认关闭，开启后可在「充电记录」查看会话数据。
+
+**诊断。** 「运行日志」汇总模块与操作记录。设备或 ROM 支持情况可查阅[适配说明](docs/compatibility.md)和[真机验证记录](docs/testing.md)。
 
 ## 安装与权限
 
-安装 APK 后，首次进入 Root 工具点击「授权并准备工具」，在 KernelSU 等管理器授权。Root 工具可独立运行。“我的设备美化”另外需要支持 libxposed API 102 的 LSPosed，启用模块并仅勾选「设置」`com.android.settings`；启用或更新后重新打开系统设置，必要时重启手机。
+1. 在 [GitHub Releases](https://github.com/Android-Modules/pengpai-tool/releases) 选择对应版本，下载 `HyperCraft-HyperOS3-*.apk`，用手机的安装器打开。每个发布版本同时提供 `.sha256` 校验文件。
+2. 打开澎湃工坊，进入任一 Root 工具页。若出现「授权并准备工具」，点击后在 KernelSU 等 Root 管理器中授权。
+3. 如需「我的设备美化」，在支持 libxposed API 102 的 LSPosed 中启用澎湃工坊，勾选「设置」`com.android.settings`，然后重新打开系统设置。其他 Root 工具可独立使用。
 
-后端独立使用 `/data/adb/hypercraft/runtime` 和 `/data/adb/hypercraft/state`，开机入口为 `post-fs-data.d/hypercraft.sh`、`service.d/hypercraft.sh`。升级 APK 保留配置，不自动导入旧模块配置。充电控制、充电记录、设备美化及米兔默认关闭；页面按设备实际能力显示可用状态。
+本版在 POCO F9 Ultra（`songyuan`）、HyperOS 3 / Android 16、KernelSU 3.3.1 与 LSPosed API 102 环境下验证。其他机型的刷新率、充电节点及厂商接口以页面检测结果为准。旧版澎湃小工具的配置需要手动重新设置，本版数据独立保存在 `/data/adb/hypercraft/state`。
+
+Releases 中的 APK 使用 CI 生成的 Android 开发签名。Android 要求覆盖安装的两个版本使用相同签名，已安装的本地构建版或其他 CI 构建版可能需要卸载后才能安装。替换前可在「备份与模块设置」中备份。
 
 ## 构建与验证
 
-需要 JDK 21、Android SDK 37；目标 Android 16/API 36，最低 API 35。已移除桌面 C++ 构建与 NDK 依赖。
+进入 `HyperCraft-HyperOS3` 后，使用 JDK 21 和 Android SDK 37 构建。目标 API 36，最低 API 35。
 
 ```sh
 bash "./gradlew" :app:assembleRelease :app:testDebugUnitTest :streamline:testDebugUnitTest :app:lintRelease :streamline:lintRelease
 python3 -m unittest discover -s "streamline/tests" -v
 ```
 
-输出为 `app/build/outputs/apk/release/app-release.apk`。当前 release 使用本机构建环境的 Android debug 开发签名，正式分发需另配签名。兼容范围见[适配说明](docs/compatibility.md)，本次测试与限制见[验证记录](docs/testing.md)。
+输出文件为 `app/build/outputs/apk/release/app-release.apk`。推送 `v<版本号>` 形式的 HyperOS 3 版本标签后，GitHub Actions 会构建 APK、运行测试、校验签名和版本号，并将 APK 和 SHA-256 校验文件发布到 Releases。标签去掉 `v` 后应与 `app/build.gradle.kts` 的 `versionName` 一致，例如 `v0.3.0-hyperos3.1`。
 
 ## 源码组织
 
