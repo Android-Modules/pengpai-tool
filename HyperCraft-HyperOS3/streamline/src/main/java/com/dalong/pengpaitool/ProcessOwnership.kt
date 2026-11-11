@@ -33,9 +33,9 @@ internal class ProcessOwnership private constructor(val process: Process, val co
                 (
                   trap '' TERM HUP INT
                   IFS= read -r _ <&4
-                  kill -TERM -- "-${'$'}owner" 2>/dev/null
+                  kill -TERM "-${'$'}owner" 2>/dev/null
                   sleep 0.2
-                  kill -KILL -- "-${'$'}owner" 2>/dev/null
+                  kill -KILL "-${'$'}owner" 2>/dev/null
                 ) &
                 monitor=${'$'}!
                 sh -c ${shq(command)} </dev/null 4<&- &
